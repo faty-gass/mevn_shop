@@ -16,7 +16,7 @@ app.use('/api', router)
 db();
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Welcome to shop api!')
 })
 
 app.listen(port, () => {
