@@ -2,7 +2,7 @@
   <div class="window-height row justify-center items-center">
     <div class="q-pa-md col-6 text-center" style="max-width: 80vw ">
       <h3 class="text-h6">Enter your credentials to login</h3>
-      <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md q-pa-lg">
+      <q-form @submit="onSubmit" class="q-gutter-md q-pa-lg">
         <q-input
           filled
           v-model="form.email"
@@ -21,13 +21,6 @@
 
         <div>
           <q-btn label="Submit" type="submit" color="primary" />
-          <q-btn
-            label="Reset"
-            type="reset"
-            color="primary"
-            flat
-            class="q-ml-sm"
-          />
         </div>
       </q-form>
     </div>
@@ -60,15 +53,17 @@ export default {
       };
 
       axios(config)
-        .then(function(response) {
+        .then(response => {
           console.log(response.data);
+          if (response.data && response.data.token) {
+            this.$store.commit("token/setToken", response.data.token);
+            this.$router.push("/profile");
+          }
         })
-        .catch(function(error) {
+        .catch(error => {
           console.log(error);
         });
-    },
-
-    onReset() {}
+    }
   }
 };
 </script>
