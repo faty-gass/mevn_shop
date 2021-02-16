@@ -28,3 +28,8 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
+
+process.on('uncaughtException', err => {
+  console.log(`Uncaught Exception: ${err.message}`)
+  process.exit(1)
+})

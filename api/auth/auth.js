@@ -11,7 +11,8 @@ passport.use(
     {
       usernameField: 'email',
       passwordField: 'password',
-      passReqToCallback: true
+      passReqToCallback: true,
+      ignoreExpiration: true
     },
     async (req, email, password, done) => {
       try {

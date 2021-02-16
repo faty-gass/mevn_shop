@@ -7,8 +7,6 @@ const UserSchema = require('../models/user-model')
 const ProductSchema = require('../models/product-model')
 
 
-
-
 // ------------ Product Routes ------------------//
 // get all products
 router.get('/products', async (req, res) => {
@@ -125,24 +123,6 @@ router.post('/login', async (req, res, next) => {
 
 
 
-// update user w/ id
-router.patch('/user/:id', (req, res) => {
-  res.send('tuser')
-})
 
-// delete user w/ id
-router.delete('/user/:id', (req, res) => {
-  res.send('user')
-})
-
-// get all users
-router.get('/users', (req, res) => {
-  res.send('tuser')
-})
-
-// get one user w/ id
-/* router.get('/user/:id', (req, res) => {
-  res.send('user')
-}) */
 
 module.exports = router
