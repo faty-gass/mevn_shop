@@ -1,13 +1,12 @@
 const express = require('express')
-//const app = express();
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
 const router = express.Router();
 
-const UserSchema = require('./user-model')
-const ProductSchema = require('./product-model')
+const UserSchema = require('../models/user-model')
+const ProductSchema = require('../models/product-model')
 
-router.get('/test', (req, res) => {
-  res.send('test')
-})
+
 
 
 // ------------ Product Routes ------------------//
@@ -83,29 +82,67 @@ router.delete('/product/:id', async (req, res) => {
 
 
 // ---------------------- User Routes -----------------------//
-// create new user
-router.post('/users', (req, res) => {
-  res.send('test')
-})
+// create new user, register
+router.post( '/signup', passport.authenticate('signup', { session: false }),
+  async (req, res, next) => {
+    res.json({
+      message: 'Signup successful',
+      user: req.user
+    });
+  }
+);
+
+// login
+router.post('/login', async (req, res, next) => {
+  passport.authenticate(
+    'login',
+    async (err, user, info) => {
+      try {
+        if (err || !user) {
+          const error = new Error('An error occurred.');
+
+          return next(error);
+        }
+
+        req.login(
+          user,
+          { session: false },
+          async (error) => {
+            if (error) return next(error);
+
+            const body = { _id: user._id, email: user.email };
+            const token = jwt.sign({ user: body }, 'TOP_SECRET');
+
+            return res.json({ token });
+          }
+        );
+      } catch (error) {
+        return next(error);
+      }
+    }
+  )(req, res, next);
+});
+
+
 
 // update user w/ id
 router.patch('/user/:id', (req, res) => {
-  res.send('test')
+  res.send('tuser')
 })
 
 // delete user w/ id
 router.delete('/user/:id', (req, res) => {
-  res.send('test')
+  res.send('user')
 })
 
 // get all users
 router.get('/users', (req, res) => {
-  res.send('test')
+  res.send('tuser')
 })
 
 // get one user w/ id
-router.get('/user/:id', (req, res) => {
-  res.send('test')
-})
+/* router.get('/user/:id', (req, res) => {
+  res.send('user')
+}) */
 
 module.exports = router
