@@ -13,7 +13,63 @@
 
         <q-toolbar-title>My Shop</q-toolbar-title>
 
-        <q-btn flat round dense icon="whatshot" />
+        <!------------------ DROPDOWN BUTTON ---------------------->
+        <div class="q-pa-md">
+          <q-btn-dropdown
+            split
+            color="primary"
+            push
+            glossy
+            no-caps
+            label="Connection"
+            @click="onMainClick"
+          >
+            <q-list>
+              <q-item clickable v-close-popup :to="{ name: 'Login' }">
+                <q-item-section avatar>
+                  <q-avatar icon="login" color="primary" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Sign in</q-item-label>
+                </q-item-section>
+              </q-item>
+
+              <q-item clickable v-close-popup :to="{ name: 'Register' }">
+                <q-item-section avatar>
+                  <q-avatar
+                    icon="how_to_reg"
+                    color="primary"
+                    text-color="white"
+                  />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Register</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+
+            <q-list>
+              <q-item clickable v-close-popup @click="onItemClick">
+                <q-item-section avatar>
+                  <q-avatar icon="person" color="primary" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>My account</q-item-label>
+                </q-item-section>
+              </q-item>
+
+              <q-item clickable v-close-popup @click="onItemClick">
+                <q-item-section avatar>
+                  <q-avatar icon="logout" color="red" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Logout</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+        </div>
+        <!---------------------- End dropdown button --------------------->
       </q-toolbar>
     </q-header>
 
@@ -34,6 +90,16 @@ export default {
   components: {},
   data() {
     return {};
+  },
+
+  methods: {
+    onMainClick() {
+      // console.log('Clicked on main button')
+    },
+
+    onItemClick() {
+      // console.log('Clicked on an Item')
+    }
   }
 };
 </script>
