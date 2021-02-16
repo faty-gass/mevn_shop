@@ -1,8 +1,8 @@
 <template>
-  <div class="flex justify-center row">
+  <div class="window-height row justify-center items-center">
     <div class="q-pa-md col-6 text-center" style="max-width: 80vw ">
-      <h3>Register</h3>
-      <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+      <h3 class="text-h6">Create an account</h3>
+      <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md q-ma-lg">
         <q-input
           filled
           v-model="form.name"
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Register",
 
@@ -55,21 +56,34 @@ export default {
 
   methods: {
     onSubmit() {
-      if (this.accept !== true) {
-        this.$q.notify({
-          color: "red-5",
-          textColor: "white",
-          icon: "warning",
-          message: "You need to accept the license and terms first"
+      console.log(this.form);
+
+      const data = JSON.stringify(this.form);
+
+      const config = {
+        method: "post",
+        url: "http://localhost:8080/signup",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        data: data
+      };
+
+      axios(config)
+        .then(response => {
+          console.log(response.data);
+          if (
+            response.data.message &&
+            response.data.message == "Signup successful"
+          ) {
+            this.$router.push("/login");
+          } else {
+            // dialog w/ erreur
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
         });
-      } else {
-        this.$q.notify({
-          color: "green-4",
-          textColor: "white",
-          icon: "cloud_done",
-          message: "Submitted"
-        });
-      }
     },
 
     onReset() {

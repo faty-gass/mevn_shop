@@ -49,7 +49,7 @@
             </q-list>
 
             <q-list>
-              <q-item clickable v-close-popup @click="onItemClick">
+              <q-item clickable v-close-popup :to="{ name: 'Profile' }">
                 <q-item-section avatar>
                   <q-avatar icon="person" color="primary" text-color="white" />
                 </q-item-section>
