@@ -58,6 +58,15 @@
                 </q-item-section>
               </q-item>
 
+              <q-item clickable v-close-popup :to="{ name: 'AdminProd' }">
+                <q-item-section avatar>
+                  <q-avatar icon="build" color="primary" text-color="white" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Admin Prod</q-item-label>
+                </q-item-section>
+              </q-item>
+
               <q-item clickable v-close-popup @click="logout">
                 <q-item-section avatar>
                   <q-avatar icon="logout" color="red" text-color="white" />
