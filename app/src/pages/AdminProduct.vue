@@ -10,18 +10,60 @@
 
       <!----------------------------------------- ADD PRODUCT MODAL ------------------------------>
       <q-dialog v-model="addProd">
-        <q-card>
+        <q-card style="width: 700px; max-width: 80vw;">
           <q-card-section class="row items-center q-pb-none">
-            <div class="text-h6">Close icon</div>
+            <div class="text-h6">Add Product</div>
             <q-space />
             <q-btn icon="close" flat round dense v-close-popup />
           </q-card-section>
 
           <q-card-section>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-            repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis
-            perferendis totam, ea at omnis vel numquam exercitationem aut, natus
-            minima, porro labore.
+            <q-form @submit="onSubmit" class="q-gutter-md">
+              <q-input
+                filled
+                v-model="prodForm.name"
+                label="Name *"
+                lazy-rules
+                :rules="[
+                  val => (val && val.length > 0) || 'Please type something'
+                ]"
+              />
+
+              <q-input
+                filled
+                type="number"
+                v-model="prodForm.price"
+                label="Price *"
+                lazy-rules
+                :rules="[
+                  val => (val && val.length > 0) || 'Please type something'
+                ]"
+              />
+              <q-input
+                filled
+                autogrow
+                v-model="prodForm.description"
+                label="Description *"
+                lazy-rules
+                :rules="[
+                  val => (val && val.length > 0) || 'Please type something'
+                ]"
+              />
+              <q-input
+                filled
+                v-model="prodForm.image"
+                label="Image *"
+                hint="add the image url"
+                lazy-rules
+                :rules="[
+                  val => (val && val.length > 0) || 'Please type something'
+                ]"
+              />
+
+              <div>
+                <q-btn label="Submit" type="submit" color="primary" />
+              </div>
+            </q-form>
           </q-card-section>
         </q-card>
       </q-dialog>
@@ -88,6 +130,7 @@ export default {
   data() {
     return {
       addProd: false,
+      prodForm: {},
       products: [],
       columns: [
         {
@@ -151,7 +194,28 @@ export default {
     },
 
     setEdit(id) {},
-    onDelete(id) {}
+    onDelete(id) {},
+    onSubmit() {
+      console.log(this.prodForm);
+
+      const data = JSON.stringify(this.prodForm);
+      const config = {
+        method: "post",
+        url: "http://localhost:8080/products",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        data: data
+      };
+      axios(config)
+        .then(response => {
+          console.log(response.data);
+          this.addProd = false;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
   }
 };
 </script>
