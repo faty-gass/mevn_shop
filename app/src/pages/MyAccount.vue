@@ -12,29 +12,16 @@
 
           <q-card-section>
             <q-form @submit="updateUser" class="q-gutter-md">
-              <q-input
-                filled
-                v-model="userForm.name"
-                label="Your name"
-                lazy-rules
-                :rules="[
-                  val => (val && val.length > 0) || 'Please type something'
-                ]"
-              />
+              <q-input filled v-model="userForm.name" label="Your name" />
 
-              <q-input
-                filled
-                v-model="userForm.email"
-                label="Your email"
-                lazy-rules
-                :rules="[
-                  val => (val !== null && val !== '') || 'Please type your age',
-                  val => (val > 0 && val < 100) || 'Please type a real age'
-                ]"
-              />
+              <q-input filled v-model="userForm.email" label="Your email" />
 
-              <div>
+              <div class="q-pt-md">
                 <q-btn label="Update" type="submit" color="primary" />
+              </div>
+              <div>
+                You will be redirected to signin page and will need to log in
+                with your new credentials
               </div>
             </q-form>
           </q-card-section>
@@ -55,7 +42,7 @@
             <q-form @submit="updatePwd" class="q-gutter-md">
               <q-input
                 filled
-                v-model="pwdForm.pwd1"
+                v-model="pwdForm.password"
                 type="password"
                 label="New password"
                 hint="Must contain at least 4 characters"
@@ -74,7 +61,7 @@
                 :rules="[
                   val => (val && val.length > 3) || 'Please type something',
                   val =>
-                    val == pwdForm.pwd1 || 'The passwords must be identical'
+                    val == pwdForm.password || 'The passwords must be identical'
                 ]"
               />
 
@@ -104,14 +91,59 @@ export default {
   },
 
   methods: {
-    getAuth() {},
-
     updateUser() {
-      console.log(userForm);
+      console.log(this.userForm);
+      const token = this.$store.state.token.access_token;
+      const id = this.$store.state.token.user_id;
+
+      if (id && token) {
+        const data = JSON.stringify(this.userForm);
+
+        const config = {
+          method: "patch",
+          url: `http://localhost:8080/user/edit/${id}?secret_token=${token}`,
+          headers: {
+            "Content-Type": "application/json"
+          },
+          data: data
+        };
+
+        axios(config)
+          .then(function(response) {
+            console.log(response.data);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      } else {
+        console.log("no id or token in store");
+      }
     },
 
     updatePwd() {
-      console.log("updataed");
+      const token = this.$store.state.token.access_token;
+      const id = this.$store.state.token.user_id;
+
+      if (id && token) {
+        const data = JSON.stringify(this.pwdForm);
+
+        const config = {
+          method: "patch",
+          url: `http://localhost:8080/user/edit/${id}?secret_token=${token}`,
+          headers: {
+            "Content-Type": "application/json"
+          },
+          data: data
+        };
+
+        axios(config)
+          .then(function(response) {
+            console.log(response.data);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
     }
   }
 };

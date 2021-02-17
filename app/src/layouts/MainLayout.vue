@@ -21,9 +21,9 @@
             push
             glossy
             no-caps
-            label="Connection"
+            :label="userEmail"
           >
-            <q-list>
+            <q-list v-if="!loggedStatus">
               <q-item clickable v-close-popup :to="{ name: 'Login' }">
                 <q-item-section avatar>
                   <q-avatar icon="login" color="primary" text-color="white" />
@@ -47,7 +47,7 @@
               </q-item>
             </q-list>
 
-            <q-list>
+            <q-list v-else>
               <q-item clickable v-close-popup :to="{ name: 'Profile' }">
                 <q-item-section avatar>
                   <q-avatar icon="person" color="primary" text-color="white" />
@@ -57,7 +57,7 @@
                 </q-item-section>
               </q-item>
 
-              <q-item clickable v-close-popup @click="onItemClick">
+              <q-item clickable v-close-popup @click="logout">
                 <q-item-section avatar>
                   <q-avatar icon="logout" color="red" text-color="white" />
                 </q-item-section>
@@ -84,11 +84,27 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "MainLayout",
   components: {},
   data() {
-    return {};
+    return {
+      userEmail: "Connection",
+      logged: this.loggedStatus
+    };
+  },
+
+  updated() {
+    this.getAuth();
+    console.log(this.loggedStatus);
+  },
+
+  computed: {
+    loggedStatus() {
+      return this.$store.state.token.access_token ? true : false;
+    }
   },
 
   methods: {
@@ -97,14 +113,15 @@ export default {
       if (token) {
         const config = {
           method: "get",
-          url:
-            "http://localhost:8080/user/profile?secret_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYwMmI5ZGJlYzBiZTQ4NGUwOTgwODIzZCIsImVtYWlsIjoidGVzdEB0ZXN0Y29tIn0sImlhdCI6MTYxMzQ3MTMwMH0.8ohq9v_eV2muY8eI48FZus7_EWXkKsrnNoRm1q18oTs",
+          url: `http://localhost:8080/user/profile?secret_token=${token}`,
           headers: {}
         };
 
         axios(config)
-          .then(function(response) {
-            console.log(JSON.stringify(response.data));
+          .then(response => {
+            console.log(response.data);
+            this.$store.commit("token/setUserId", response.data.user._id);
+            this.userEmail = response.data.user.email;
           })
           .catch(function(error) {
             console.log(error);
@@ -112,8 +129,10 @@ export default {
       }
     },
 
-    onItemClick() {
-      // console.log('Clicked on an Item')
+    logout() {
+      this.$store.commit("token/setUserId", "");
+      this.$store.commit("token/setToken", "");
+      this.userEmail = "Connection";
     }
   }
 };

@@ -1,6 +1,7 @@
 export default function () {
   return {
     //
-    access_token : ""
+    access_token : "",
+    user_id : ""
   }
 }
