@@ -21,7 +21,7 @@
             push
             glossy
             no-caps
-            :label="userEmail"
+            :label="loggedStatus ? 'Menu' : 'Connection'"
           >
             <q-list v-if="!loggedStatus">
               <q-item clickable v-close-popup :to="{ name: 'Login' }">
@@ -91,19 +91,26 @@ export default {
   components: {},
   data() {
     return {
-      userEmail: "Connection",
+      //userName: this.loggedName,
       logged: this.loggedStatus
     };
   },
 
   updated() {
     this.getAuth();
-    console.log(this.loggedStatus);
+    //console.log(this.loggedStatus);
   },
 
   computed: {
     loggedStatus() {
       return this.$store.state.token.access_token ? true : false;
+    },
+    loggedName() {
+      if (this.$store.state.token.user) {
+        return this.$store.state.token.user.name;
+      } else {
+        return "Connection";
+      }
     }
   },
 
@@ -120,8 +127,9 @@ export default {
         axios(config)
           .then(response => {
             console.log(response.data);
-            this.$store.commit("token/setUserId", response.data.user._id);
-            this.userEmail = response.data.user.email;
+            //this.$store.commit("token/setUserId", response.data.user._id);
+            this.$store.commit("token/setUser", response.data.user);
+            //this.userEmail = response.data.user.email;
           })
           .catch(function(error) {
             console.log(error);
@@ -130,9 +138,11 @@ export default {
     },
 
     logout() {
-      this.$store.commit("token/setUserId", "");
+      //this.$store.commit("token/setUserId", "");
+      this.$store.commit("token/setUser", "");
       this.$store.commit("token/setToken", "");
       this.userEmail = "Connection";
+      this.$router.push("/login");
     }
   }
 };

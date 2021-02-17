@@ -7,3 +7,6 @@ export function setUserId (state, payload) {
   state.user_id = payload
 }
 
+export function setUser (state, payload) {
+  state.user= payload
+}
