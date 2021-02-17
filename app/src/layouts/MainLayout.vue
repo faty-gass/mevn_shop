@@ -22,7 +22,6 @@
             glossy
             no-caps
             label="Connection"
-            @click="onMainClick"
           >
             <q-list>
               <q-item clickable v-close-popup :to="{ name: 'Login' }">
@@ -93,8 +92,24 @@ export default {
   },
 
   methods: {
-    onMainClick() {
-      // console.log('Clicked on main button')
+    getAuth() {
+      const token = this.$store.state.token.access_token;
+      if (token) {
+        const config = {
+          method: "get",
+          url:
+            "http://localhost:8080/user/profile?secret_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYwMmI5ZGJlYzBiZTQ4NGUwOTgwODIzZCIsImVtYWlsIjoidGVzdEB0ZXN0Y29tIn0sImlhdCI6MTYxMzQ3MTMwMH0.8ohq9v_eV2muY8eI48FZus7_EWXkKsrnNoRm1q18oTs",
+          headers: {}
+        };
+
+        axios(config)
+          .then(function(response) {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
     },
 
     onItemClick() {
