@@ -7,10 +7,11 @@
   >
     <q-header elevated class="bg-cyan">
       <q-toolbar class="glossy">
-        <q-avatar>
-          <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg" />
-        </q-avatar>
-
+        <q-item clickable :to="{ name: 'Home' }">
+          <q-avatar>
+            <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg" />
+          </q-avatar>
+        </q-item>
         <q-toolbar-title>My Shop</q-toolbar-title>
 
         <!------------------ DROPDOWN BUTTON ---------------------->

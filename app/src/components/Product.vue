@@ -1,29 +1,23 @@
 <template>
-  <div>
-    <q-card
-      class="my-card q-ma-lg"
-      style="max-height : 200px ; max-width: 1200px"
-      flat
-      bordered
-    >
-      <q-card-section horizontal>
-        <q-card-section
-          class="col-5 flex flex-center"
-          style="max-height : 230px ; max-width : 230px"
-        >
-          <q-img
-            fit
-            class="rounded-borders "
-            src="https://cdn.quasar.dev/img/parallax2.jpg"
-          />
+  <div class="row">
+    <q-card class="my-card q-ma-md" flat bordered>
+      <q-card-section horizontal class="row items-center">
+        <q-card-section class="col-3 flex flex-center">
+          <q-img class="rounded-borders " :src="product.image" alt="img_prod" />
         </q-card-section>
-        <q-card-section class="q-pt-xs column justify-between">
-          <div class=" text-h5 q-mt-sm q-mb-xs text-center">Product name</div>
-          <div class=" text-caption text-grey">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+        <q-card-section
+          class="q-pt-xs col-9 column justify-between text-center"
+        >
+          <div class=" text-h5 q-mt-sm q-mb-xs text-center col col-md-4">
+            {{ product.name }}
           </div>
-          <div class="text-overline text-right">Price €€</div>
+          <div class=" text-caption text-grey col-auto">
+            {{ product.description }}
+          </div>
+          <div class="text-overline text-right col col-md-4">
+            {{ product.price }} €€
+          </div>
         </q-card-section>
       </q-card-section>
     </q-card>
@@ -32,7 +26,11 @@
 
 <script>
 export default {
-  name: "Product"
+  name: "Product",
+
+  props: {
+    product: Object
+  }
 };
 </script>
 
