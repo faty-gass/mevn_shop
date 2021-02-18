@@ -1,6 +1,6 @@
 <template>
   <q-page class="row justify-center">
-    <div class="col-8 q-pa-xl">
+    <div class="col-9 q-pa-xl">
       <div class="q-pa-md">
         <q-table
           class="my-sticky-header-table"
@@ -9,6 +9,19 @@
           :columns="columns"
           bordered
         >
+          <template v-slot:body-cell-delete="props">
+            <!-- you can do anything you want here!!! -->
+            <q-td class="text-center">
+              <q-btn
+                round
+                flat
+                color="white"
+                text-color="red"
+                icon="delete"
+                @click="onDelete(props.value)"
+              />
+            </q-td>
+          </template>
           <template v-slot:body-cell-image="props">
             <!-- you can do anything you want here!!! -->
             <q-td class="">
@@ -26,10 +39,32 @@
               </div>
             </q-td>
           </template>
+          <template v-slot:body-cell-action="props">
+            <q-td>
+              <div class="column items-center justify-between">
+                <div class="col-6 q-pa-sm">
+                  <q-btn
+                    round
+                    size="xs"
+                    color="dark"
+                    icon="add"
+                    @click="addOneProd(props.value)"
+                  />
+                </div>
+                <div class="col-6 q-pa-sm ">
+                  <q-btn
+                    round
+                    size="xs"
+                    color="dark"
+                    icon="remove"
+                    class="col-4"
+                    @click="removeOneProd(props.value)"
+                  />
+                </div>
+              </div>
+            </q-td>
+          </template>
         </q-table>
-      </div>
-      <div v-for="item in storeProducts" :key="item._id">
-        <p>{{ item.name }} quantité : {{ item.countnb }}</p>
       </div>
     </div>
   </q-page>
@@ -42,6 +77,12 @@ export default {
   data() {
     return {
       columns: [
+        {
+          name: "delete",
+          label: "Delete",
+          align: "center",
+          field: "_id"
+        },
         {
           name: "name",
           label: "Product Name",
@@ -76,6 +117,12 @@ export default {
           align: "center",
           field: "countnb",
           sortable: true
+        },
+        {
+          name: "action",
+          label: "Action",
+          align: "center",
+          field: "_id"
         }
       ],
       products: this.storeProducts
@@ -87,7 +134,11 @@ export default {
     }
   },
 
-  methods: {}
+  methods: {
+    addOneProd(id) {},
+    removeOneProd(id) {},
+    onDelete(id) {}
+  }
 };
 </script>
 
