@@ -24,6 +24,7 @@
               color="secondary"
               icon-right="add_shopping_cart"
               label="Add to cart"
+              @click="addProd(product)"
             />
           </div>
         </q-card-section>
@@ -38,6 +39,12 @@ export default {
 
   props: {
     product: Object
+  },
+
+  methods: {
+    addProd(prod) {
+      this.$store.commit("cart/addToCart", prod);
+    }
   }
 };
 </script>

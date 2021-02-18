@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import createPersistedState from "vuex-persistedstate";
 
 import token from './token'
+import cart from './cart'
 
 Vue.use(Vuex)
 
@@ -18,7 +19,8 @@ Vue.use(Vuex)
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
-      token
+      token,
+      cart
       // example
       
     },

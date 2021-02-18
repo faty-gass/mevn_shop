@@ -117,6 +117,7 @@
         </q-table>
       </div>
       <!-------------------------------------------- end product list table --------------------------------->
+
       <!---------------------------------------------- EDIT PROD MODAL ---------------------------------------->
       <q-dialog v-model="editProd">
         <q-card style="width: 700px; max-width: 80vw;">
@@ -308,7 +309,7 @@ export default {
     },
 
     onSubmit() {
-      console.log(this.prodForm);
+      //console.log(this.prodForm);
 
       const data = JSON.stringify(this.prodForm);
       const config = {

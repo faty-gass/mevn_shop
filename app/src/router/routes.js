@@ -8,7 +8,8 @@ const routes = [
       { path: '/register', name: 'Register', component: () => import('pages/Register.vue') },
       { path: '/login', name: 'Login' ,component: () => import('pages/Login.vue') },
       { path: '/profile', name: 'Profile' ,component: () => import('pages/MyAccount.vue') },
-      { path: '/admin-product', name: 'AdminProd' ,component: () => import('pages/AdminProduct.vue') }
+      { path: '/admin-product', name: 'AdminProd' ,component: () => import('pages/AdminProduct.vue') },
+      { path: '/cart', name: 'Cart' ,component: () => import('pages/MyCart.vue') }
 
     ]
   },
