@@ -28,6 +28,9 @@
           </template>
         </q-table>
       </div>
+      <div v-for="item in storeProducts" :key="item._id">
+        <p>{{ item.name }} quantité : {{ item.countnb }}</p>
+      </div>
     </div>
   </q-page>
 </template>
@@ -65,6 +68,13 @@ export default {
           label: "Price (in €)",
           align: "center",
           field: "price",
+          sortable: true
+        },
+        {
+          name: "count",
+          label: "Quantity",
+          align: "center",
+          field: "countnb",
           sortable: true
         }
       ],
