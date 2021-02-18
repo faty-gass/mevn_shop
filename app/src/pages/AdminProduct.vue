@@ -117,6 +117,64 @@
         </q-table>
       </div>
       <!-------------------------------------------- end product list table --------------------------------->
+      <!---------------------------------------------- EDIT PROD MODAL ---------------------------------------->
+      <q-dialog v-model="editProd">
+        <q-card style="width: 700px; max-width: 80vw;">
+          <q-card-section class="row items-center q-pb-none">
+            <div class="text-h6">Edit Product</div>
+            <q-space />
+            <q-btn icon="close" flat round dense v-close-popup />
+          </q-card-section>
+
+          <q-card-section>
+            <q-form @submit="onUpdate" class="q-gutter-md">
+              <q-input
+                filled
+                v-model="updatedProd.name"
+                label="Name *"
+                lazy-rules
+                :rules="[
+                  val => (val && val.length > 0) || 'Please type something'
+                ]"
+              />
+
+              <q-input
+                filled
+                type="number"
+                v-model="updatedProd.price"
+                label="Price *"
+                lazy-rules
+                :rules="[]"
+              />
+              <q-input
+                filled
+                autogrow
+                v-model="updatedProd.description"
+                label="Description *"
+                lazy-rules
+                :rules="[
+                  val => (val && val.length > 0) || 'Please type something'
+                ]"
+              />
+              <q-input
+                filled
+                v-model="updatedProd.image"
+                label="Image *"
+                hint="add the image url"
+                lazy-rules
+                :rules="[
+                  val => (val && val.length > 0) || 'Please type something'
+                ]"
+              />
+
+              <div>
+                <q-btn label="Submit" type="submit" color="primary" />
+              </div>
+            </q-form>
+          </q-card-section>
+        </q-card>
+      </q-dialog>
+      <!-------------------------------------- end EDIT PROD MODAL -------------------------->
     </div>
   </q-page>
 </template>
@@ -130,7 +188,9 @@ export default {
   data() {
     return {
       addProd: false,
+      editProd: false,
       prodForm: {},
+      updatedProd: {},
       products: [],
       columns: [
         {
@@ -193,8 +253,60 @@ export default {
         });
     },
 
-    setEdit(id) {},
-    onDelete(id) {},
+    setEdit(id) {
+      this.editProd = true;
+      let initValues = this.products.find(prod => prod._id == id);
+      this.updatedProd._id = initValues._id;
+      this.updatedProd.name = initValues.name;
+      this.updatedProd.description = initValues.description;
+      this.updatedProd.image = initValues.image;
+      this.updatedProd.price = initValues.price;
+    },
+
+    onUpdate() {
+      const data = JSON.stringify(this.updatedProd);
+
+      const config = {
+        method: "patch",
+        url: `http://localhost:8080/product/${this.updatedProd._id}`,
+        headers: {
+          "Content-Type": "application/json"
+        },
+        data: data
+      };
+
+      axios(config)
+        .then(response => {
+          //console.log(response.data.product);
+
+          let prodIdx = this.products.indexOf(
+            this.products.find(prod => prod._id == this.updatedProd._id)
+          );
+          this.products.splice(prodIdx, 1, response.data.product);
+          this.editProd = false;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+
+    onDelete(id) {
+      const config = {
+        method: "delete",
+        url: `http://localhost:8080/product/${id}`
+      };
+
+      axios(config)
+        .then(response => {
+          console.log(response.data);
+          let prodIdx = this.products.indexOf(response.data.prod);
+          this.products.splice(prodIdx, 1);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+
     onSubmit() {
       console.log(this.prodForm);
 
@@ -210,6 +322,7 @@ export default {
       axios(config)
         .then(response => {
           console.log(response.data);
+          this.products.push(response.data.product);
           this.addProd = false;
         })
         .catch(function(error) {

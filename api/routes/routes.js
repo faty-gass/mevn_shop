@@ -68,7 +68,7 @@ router.delete('/product/:id', async (req, res) => {
   try {
     const prod = await ProductSchema.findOneAndDelete({_id :req.params.id});
     if (prod){
-      res.send({message : "Product deleted"})
+      res.send({message : "Product deleted", prod})
     } else {
       res.send({message : "Product not found"})
     }
