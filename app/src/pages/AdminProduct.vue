@@ -79,16 +79,14 @@
           bordered
         >
           <template v-slot:body-cell-image="props">
-            <!-- you can do anything you want here!!! -->
             <q-td class="">
               <q-img
                 :src="props.value"
-                style="height: 100px ; min-width: 100px"
+                style="height: 100px ; min-width: 100px ; border-radius : 20px"
               />
             </q-td>
           </template>
           <template v-slot:body-cell-description="props">
-            <!-- you can do anything you want here!!! -->
             <q-td>
               <div class="text-center">
                 {{ props.value.substring(0, 50) + "..." }}
@@ -96,7 +94,6 @@
             </q-td>
           </template>
           <template v-slot:body-cell-action="props">
-            <!-- you can do anything you want here!!! -->
             <q-td>
               <div class="text-center q-gutter-lg">
                 <q-btn
@@ -325,6 +322,7 @@ export default {
           console.log(response.data);
           this.products.push(response.data.product);
           this.addProd = false;
+          this.prodForm = {};
         })
         .catch(function(error) {
           console.log(error);
