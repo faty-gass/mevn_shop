@@ -1,8 +1,8 @@
 <template>
   <div class="row">
     <q-card class="my-card q-ma-md q-pa-md " flat bordered>
-      <q-card-section class="row items-center">
-        <q-card-section class="col-3 flex flex-center ">
+      <q-card-section class="row items-center justify-center">
+        <q-card-section class="col-md-3 col-8 flex flex-center ">
           <q-img
             class=""
             style="border-radius : 20px"
@@ -12,15 +12,17 @@
         </q-card-section>
 
         <q-card-section
-          class="q-pt-xs col-9 column justify-between text-center"
+          class="q-pt-xs col-md-9 col-8 column justify-between text-center"
         >
-          <div class="col col-md-2 row justify-between">
+          <div class="col col-md-2 row justify-between items-center">
             <div
-              class="col-10 text-h5 text-weight-bold text-center text-teal-10"
+              class="col-md-10 col-8 text-h5 text-weight-bold text-center text-teal-10"
             >
               {{ product.name }}
             </div>
-            <div class=" col-2 text-subtitle1 ">{{ product.price }} €</div>
+            <div class=" col-md-2 col-8 text-subtitle1 ">
+              {{ product.price }} €
+            </div>
           </div>
           <div class=" text-grey col-auto">
             {{ product.description }}

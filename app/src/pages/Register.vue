@@ -3,7 +3,7 @@
     <q-card class="my-card col-6">
       <div class="q-pa-md  text-center" style="max-width: 80vw ">
         <q-card-section>
-          <div class="text-h4">Create an account</div>
+          <div class="text-h4 text-cyan-10">Create an account</div>
         </q-card-section>
         <q-separator inset />
         <q-card-section>
@@ -43,11 +43,11 @@
             />
 
             <div>
-              <q-btn label="Submit" type="submit" color="primary" />
+              <q-btn label="Submit" type="submit" color="secondary" />
               <q-btn
                 label="Reset"
                 type="reset"
-                color="primary"
+                color="secondary"
                 flat
                 class="q-ml-sm"
               />

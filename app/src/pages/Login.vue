@@ -3,7 +3,7 @@
     <q-card class="col-6 ">
       <div class="q-pa-md col-6 text-center " style="max-width: 80vw ">
         <q-card-section>
-          <div class="text-h4">Log in to your account</div>
+          <div class="text-h4 text-cyan-10">Log in to your account</div>
         </q-card-section>
         <q-separator inset />
         <q-card-section>
@@ -29,7 +29,7 @@
             />
 
             <div>
-              <q-btn label="Submit" type="submit" color="primary" />
+              <q-btn label="Submit" type="submit" color="secondary" />
             </div>
           </q-form>
         </q-card-section>

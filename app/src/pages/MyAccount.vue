@@ -1,7 +1,9 @@
 <template>
   <div class="row window-height justify-center items-center">
     <div class="col-12">
-      <div class="text-center text-h4 q-pa-xl">Welcome {{ userName }} !!</div>
+      <div class="text-center text-h4 text-cyan-10 q-pa-xl">
+        Welcome {{ userName }} !!
+      </div>
       <div class="row justify-center items-center">
         <!----------------------- USER FORM -------------------------------------->
 
