@@ -140,9 +140,9 @@ export default {
     }
   },
 
-  beforeMount() {
+  /*   created() {
     this.products = this.storeProducts;
-  },
+  }, */
 
   methods: {
     addOneProd(id) {
