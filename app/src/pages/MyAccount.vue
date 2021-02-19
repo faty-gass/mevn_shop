@@ -5,7 +5,7 @@
       <div class="row justify-center items-center">
         <!----------------------- USER FORM -------------------------------------->
 
-        <div class="col-4 q-pa-lg">
+        <div class="col-10 col-md-4 q-pa-lg">
           <q-card class="my-card text-center">
             <q-card-section>
               <div class="text-h6">Update my infos</div>
@@ -15,14 +15,24 @@
 
             <q-card-section>
               <q-form @submit="updateUser" class="q-gutter-md">
-                <q-input filled v-model="name" label="Your name" />
+                <q-input
+                  filled
+                  v-model="name"
+                  label="New name"
+                  :hint="'Current name : ' + userName"
+                />
 
-                <q-input filled v-model="email" label="Your email" />
+                <q-input
+                  filled
+                  v-model="email"
+                  label="New email"
+                  :hint="'Current email : ' + userEmail"
+                />
 
                 <div class="q-pt-md">
                   <q-btn label="Update" type="submit" color="primary" />
                 </div>
-                <div>
+                <div class="text-weight-thin">
                   You will be redirected to the signin page and will need to log
                   in with your new credentials
                 </div>
@@ -33,7 +43,7 @@
         <!------------------------ END USER FORM ------------------------------>
 
         <!--------------------------- PWD FORM --------------------------------->
-        <div class="col-4 q-pa-lg">
+        <div class="col-10 col-md-4 q-pa-lg">
           <q-card class="my-card text-center">
             <q-card-section>
               <div class="text-h6">Update my password</div>
@@ -77,6 +87,14 @@
           </q-card>
         </div>
         <!----------------------------------------- END PWD FORM ----------------------------------------->
+        <div class="col-8 text-right">
+          <q-btn
+            icon="delete"
+            label="Delete your account"
+            color="negative"
+            @click="onDelete"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -90,8 +108,8 @@ export default {
 
   data() {
     return {
-      name: this.$store.state.token.user.name,
-      email: this.$store.state.token.user.email,
+      name: "",
+      email: "",
 
       pwdForm: {}
     };
@@ -104,14 +122,14 @@ export default {
       } else {
         return "New name";
       }
-    }
-    /*userEmail() {
+    },
+    userEmail() {
       if (this.$store.state.token.user) {
         return this.$store.state.token.user.email;
       } else {
         return "New email";
       }
-    } */
+    }
   },
 
   methods: {
@@ -136,6 +154,7 @@ export default {
           .then(response => {
             //console.log(response.data);
             this.logout();
+            this.$router.push("/login");
           })
           .catch(function(error) {
             console.log(error);
@@ -171,11 +190,35 @@ export default {
       }
     },
 
+    onDelete() {
+      const token = this.$store.state.token.access_token;
+      const id = this.$store.state.token.user._id;
+      const config = {
+        method: "delete",
+        url: `http://localhost:8080/user/delete/${id}?secret_token=${token}`,
+        headers: {}
+      };
+
+      axios(config)
+        .then(response => {
+          console.log(response.data);
+          if (
+            response.data.message &&
+            response.data.message == "User deleted"
+          ) {
+            this.logout();
+            this.$router.push("/register");
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+
     logout() {
-      //this.$store.commit("token/setUserId", "");
       this.$store.commit("token/setUser", "");
       this.$store.commit("token/setToken", "");
-      this.$router.push("/login");
+      //this.$router.push("/login");
     }
   }
 };

@@ -5,8 +5,8 @@
     style="height: 100vh"
     class="shadow-2 rounded-borders"
   >
-    <q-header elevated class="bg-cyan">
-      <q-toolbar class="glossy">
+    <q-header elevated class="bg-cyan-7">
+      <q-toolbar class="">
         <q-item clickable :to="{ name: 'Home' }">
           <q-avatar>
             <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg" />
@@ -18,16 +18,16 @@
         <div class="q-pa-md">
           <q-btn-dropdown
             split
-            color="primary"
+            :color="loggedStatus ? 'cyan-9' : 'white'"
+            :text-color="loggedStatus ? 'white' : 'cyan-10'"
             push
-            glossy
             no-caps
-            :label="loggedStatus ? 'Menu' : 'Connection'"
+            :label="loggedStatus ? 'Settings' : 'Connection'"
           >
             <q-list v-if="!loggedStatus">
               <q-item clickable v-close-popup :to="{ name: 'Login' }">
                 <q-item-section avatar>
-                  <q-avatar icon="login" color="primary" text-color="white" />
+                  <q-avatar icon="login" color="secondary" text-color="white" />
                 </q-item-section>
                 <q-item-section>
                   <q-item-label>Sign in</q-item-label>
@@ -38,7 +38,7 @@
                 <q-item-section avatar>
                   <q-avatar
                     icon="how_to_reg"
-                    color="primary"
+                    color="secondary"
                     text-color="white"
                   />
                 </q-item-section>
@@ -96,9 +96,9 @@
     <q-page-container>
       <router-view />
     </q-page-container>
-    <q-footer elevated class="bg-cyan">
-      <q-toolbar class="glossy">
-        <q-toolbar-title>Footer</q-toolbar-title>
+    <q-footer elevated class="bg-cyan-7">
+      <q-toolbar class="">
+        <q-toolbar-title></q-toolbar-title>
       </q-toolbar>
     </q-footer>
   </q-layout>
@@ -150,8 +150,7 @@ export default {
 
         axios(config)
           .then(response => {
-            console.log(response.data);
-            //this.$store.commit("token/setUserId", response.data.user._id);
+            //console.log(response.data);
             this.$store.commit("token/setUser", response.data.user);
             //this.userEmail = response.data.user.email;
           })
@@ -162,7 +161,6 @@ export default {
     },
 
     logout() {
-      //this.$store.commit("token/setUserId", "");
       this.$store.commit("token/setUser", "");
       this.$store.commit("token/setToken", "");
       this.userEmail = "Connection";

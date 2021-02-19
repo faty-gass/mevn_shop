@@ -1,29 +1,40 @@
 <template>
-  <div class="window-height row justify-center items-center">
-    <div class="q-pa-md col-6 text-center" style="max-width: 80vw ">
-      <h3 class="text-h6">Enter your credentials to login</h3>
-      <q-form @submit="onSubmit" class="q-gutter-md q-pa-lg">
-        <q-input
-          filled
-          v-model="form.email"
-          label="Your email *"
-          lazy-rules
-          :rules="[val => (val && val.length > 0) || 'Please type something']"
-        />
-        <q-input
-          filled
-          type="password"
-          v-model="form.password"
-          label="Your password *"
-          lazy-rules
-          :rules="[val => (val && val.length > 3) || 'Please type something']"
-        />
+  <div class="window-height row justify-center items-center bg-cyan-1">
+    <q-card class="col-6 ">
+      <div class="q-pa-md col-6 text-center " style="max-width: 80vw ">
+        <q-card-section>
+          <div class="text-h4">Log in to your account</div>
+        </q-card-section>
+        <q-separator inset />
+        <q-card-section>
+          <q-form @submit="onSubmit" class="q-gutter-md q-pa-lg">
+            <q-input
+              filled
+              v-model="form.email"
+              label="Your email *"
+              lazy-rules
+              :rules="[
+                val => (val && val.length > 0) || 'Please type something'
+              ]"
+            />
+            <q-input
+              filled
+              type="password"
+              v-model="form.password"
+              label="Your password *"
+              lazy-rules
+              :rules="[
+                val => (val && val.length > 3) || 'Please type something'
+              ]"
+            />
 
-        <div>
-          <q-btn label="Submit" type="submit" color="primary" />
-        </div>
-      </q-form>
-    </div>
+            <div>
+              <q-btn label="Submit" type="submit" color="primary" />
+            </div>
+          </q-form>
+        </q-card-section>
+      </div>
+    </q-card>
   </div>
 </template>
 

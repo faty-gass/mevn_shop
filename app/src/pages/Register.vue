@@ -1,44 +1,61 @@
 <template>
-  <div class="window-height row justify-center items-center">
-    <div class="q-pa-md col-6 text-center" style="max-width: 80vw ">
-      <h3 class="text-h6">Create an account</h3>
-      <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md q-ma-lg">
-        <q-input
-          filled
-          v-model="form.name"
-          label="Your name *"
-          lazy-rules
-          :rules="[val => (val && val.length > 0) || 'Please type something']"
-        />
-        <q-input
-          filled
-          v-model="form.email"
-          label="Your email *"
-          lazy-rules
-          :rules="[val => (val && val.length > 0) || 'Please type something']"
-        />
-        <q-input
-          filled
-          type="password"
-          v-model="form.password"
-          label="Your password *"
-          hint="Must contain at least 4 characters"
-          lazy-rules
-          :rules="[val => (val && val.length > 3) || 'Please type something']"
-        />
+  <div class="window-height row justify-center items-center bg-cyan-1">
+    <q-card class="my-card col-6">
+      <div class="q-pa-md  text-center" style="max-width: 80vw ">
+        <q-card-section>
+          <div class="text-h4">Create an account</div>
+        </q-card-section>
+        <q-separator inset />
+        <q-card-section>
+          <q-form
+            @submit="onSubmit"
+            @reset="onReset"
+            class="q-gutter-md q-ma-lg"
+          >
+            <q-input
+              filled
+              v-model="form.name"
+              label="Your name *"
+              lazy-rules
+              :rules="[
+                val => (val && val.length > 0) || 'Please type something'
+              ]"
+            />
+            <q-input
+              filled
+              v-model="form.email"
+              label="Your email *"
+              lazy-rules
+              :rules="[
+                val => (val && val.length > 0) || 'Please type something'
+              ]"
+            />
+            <q-input
+              filled
+              type="password"
+              v-model="form.password"
+              label="Your password *"
+              hint="Must contain at least 4 characters"
+              lazy-rules
+              :rules="[
+                val => (val && val.length > 3) || 'Please type something'
+              ]"
+            />
 
-        <div>
-          <q-btn label="Submit" type="submit" color="primary" />
-          <q-btn
-            label="Reset"
-            type="reset"
-            color="primary"
-            flat
-            class="q-ml-sm"
-          />
-        </div>
-      </q-form>
-    </div>
+            <div>
+              <q-btn label="Submit" type="submit" color="primary" />
+              <q-btn
+                label="Reset"
+                type="reset"
+                color="primary"
+                flat
+                class="q-ml-sm"
+              />
+            </div>
+          </q-form>
+        </q-card-section>
+      </div>
+    </q-card>
   </div>
 </template>
 

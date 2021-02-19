@@ -1,6 +1,6 @@
 <template>
   <q-page class="row justify-center">
-    <div class="col-8 column ">
+    <div class="col-8 column bg-cyan-1 q-pa-lg">
       <div v-for="item in products" :key="item._id">
         <Product :product="item" />
       </div>

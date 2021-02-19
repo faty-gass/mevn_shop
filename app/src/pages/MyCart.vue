@@ -1,7 +1,7 @@
 <template>
   <q-page class="row justify-center">
-    <div class="col-9 q-pa-xl">
-      <div class="q-pa-md">
+    <div class="col-9 q-pa-xl ">
+      <div class="q-pa-md bg-cyan-1">
         <q-table
           class="my-sticky-header-table"
           title="My Cart"

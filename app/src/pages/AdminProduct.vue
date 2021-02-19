@@ -60,8 +60,8 @@
                 ]"
               />
 
-              <div>
-                <q-btn label="Submit" type="submit" color="primary" />
+              <div class="text-right">
+                <q-btn label="Submit" type="submit" color="secondary" />
               </div>
             </q-form>
           </q-card-section>
@@ -76,6 +76,7 @@
           title="Product list"
           :data="products"
           :columns="columns"
+          table-header-class="bg-cyan-1"
           bordered
         >
           <template v-slot:body-cell-image="props">
@@ -104,7 +105,7 @@
                 />
                 <q-btn
                   round
-                  color="red"
+                  color="negative"
                   icon="delete"
                   @click="onDelete(props.value)"
                 />
@@ -165,8 +166,8 @@
                 ]"
               />
 
-              <div>
-                <q-btn label="Submit" type="submit" color="primary" />
+              <div class="text-right">
+                <q-btn label="Submit" type="submit" color="secondary" />
               </div>
             </q-form>
           </q-card-section>
