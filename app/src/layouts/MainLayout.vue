@@ -79,6 +79,17 @@
           </q-btn-dropdown>
         </div>
         <!---------------------- End dropdown button --------------------->
+        <q-btn
+          dense
+          color="white"
+          text-color="primary"
+          round
+          :to="{ name: 'Cart' }"
+          icon="shopping_cart"
+          class="q-ml-md"
+        >
+          <q-badge color="red" floating>{{ cartCount }}</q-badge>
+        </q-btn>
       </q-toolbar>
     </q-header>
 
@@ -121,6 +132,9 @@ export default {
       } else {
         return "Connection";
       }
+    },
+    cartCount() {
+      return this.$store.state.cart.products.length;
     }
   },
 

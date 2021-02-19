@@ -66,6 +66,12 @@
           </template>
         </q-table>
       </div>
+      <q-btn
+        icon="delete"
+        color="secondary"
+        label="Empty the cart"
+        @click="emptyCart"
+      />
     </div>
   </q-page>
 </template>
@@ -125,7 +131,7 @@ export default {
           field: "_id"
         }
       ],
-      products: this.storeProducts
+      products: []
     };
   },
   computed: {
@@ -134,10 +140,23 @@ export default {
     }
   },
 
+  beforeMount() {
+    this.products = this.storeProducts;
+  },
+
   methods: {
-    addOneProd(id) {},
-    removeOneProd(id) {},
-    onDelete(id) {}
+    addOneProd(id) {
+      this.$store.commit("cart/addOne", id);
+    },
+    removeOneProd(id) {
+      this.$store.commit("cart/removeOne", id);
+    },
+    onDelete(id) {
+      this.$store.commit("cart/removeFrCart", id);
+    },
+    emptyCart() {
+      this.$store.commit("cart/deleteAll");
+    }
   }
 };
 </script>

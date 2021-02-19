@@ -15,10 +15,12 @@
           class="q-pt-xs col-9 column justify-between text-center"
         >
           <div class="col col-md-2 row justify-between">
-            <div class="col-10 text-h5 text-center ">
+            <div
+              class="col-10 text-h5 text-weight-bold text-center text-teal-10"
+            >
               {{ product.name }}
             </div>
-            <div class=" col-2">{{ product.price }} €</div>
+            <div class=" col-2 text-subtitle1 ">{{ product.price }} €</div>
           </div>
           <div class=" text-grey col-auto">
             {{ product.description }}
